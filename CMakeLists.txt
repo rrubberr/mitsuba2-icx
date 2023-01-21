@@ -157,28 +157,6 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
    endif()
 endif()
 
-# Prefer libc++ in conjunction with Clang
-if (CMAKE_CXX_COMPILER_ID MATCHES "Clang" AND NOT CMAKE_CXX_FLAGS MATCHES "-stdlib=libc\\+\\+")
-  CHECK_CXX_COMPILER_AND_LINKER_FLAGS(HAS_LIBCPP "-stdlib=libc++" "-stdlib=libc++")
-  if (HAS_LIBCPP)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++ -D_LIBCPP_VERSION")
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++")
-    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -stdlib=libc++")
-    message(STATUS "Mitsuba: using libc++.")
-  else()
-    CHECK_CXX_COMPILER_AND_LINKER_FLAGS(HAS_LIBCPP_AND_CPPABI "-stdlib=libc++" "-stdlib=libc++ -lc++abi")
-    if (HAS_LIBCPP_AND_CPPABI)
-      set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++ -D_LIBCPP_VERSION")
-      set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -stdlib=libc++ -lc++abi")
-      set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -stdlib=libc++ -lc++abi")
-      message(STATUS "Mitsuba: using libc++ and libc++abi.")
-    else()
-      message(FATAL_ERROR "When Clang is used to compile Mitsuba, libc++ must be available -- GCC's libstdc++ is not supported! (please install the libc++ development headers, provided e.g. by the packages 'libc++-dev' and 'libc++abi-dev' on Debian/Ubuntu).")
-    endif()
-  endif()
-endif()
-
-
 # Clang/GCC address sanitizer
 if ((MTS_SANITIZE_ADDRESS OR MTS_SANITIZE_MEMORY) AND (CMAKE_CXX_COMPILER_ID MATCHES "(GNU|Clang)"))
   # Don't optimize too heavily

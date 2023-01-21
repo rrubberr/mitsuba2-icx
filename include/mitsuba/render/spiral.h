@@ -7,7 +7,7 @@
 #include <tbb/spin_mutex.h>
 
 #if !defined(MTS_BLOCK_SIZE)
-#  define MTS_BLOCK_SIZE 32
+#  define MTS_BLOCK_SIZE 16
 #endif
 
 NAMESPACE_BEGIN(mitsuba)

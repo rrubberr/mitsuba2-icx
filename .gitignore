@@ -16,7 +16,7 @@ Makefile
 
 # Miscellaneous;
 /ext_build
-/build*
+/build
 /dist
 *.dir
 *~
