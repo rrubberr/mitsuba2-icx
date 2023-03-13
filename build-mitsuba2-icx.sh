@@ -34,6 +34,6 @@ case $yn in
 		exit 1;;
 esac
 
-source /opt/intel/oneapi/setvars.sh && export PATH=/opt/intel/oneapi/compiler/2023.0.0/linux/compiler/lib/intel64_lin:$PATH && export CC=icx && export CXX=icpx && cp CMakeLists.txt ext/enoki/ && mkdir build && cd build && cmake -GNinja .. -DMTS_ENABLE_EMBREE=TRUE && ninja -j16 && mv dist mitsuba2-icc && echo Done!
+source /opt/intel/oneapi/setvars.sh && export PATH=/opt/intel/oneapi/compiler/2023.0.0/linux/compiler/lib/intel64_lin:$PATH && export CC=icx && export CXX=icpx && cp CMakeLists-Enoki.txt ext/enoki/CmakeLists.txt && mkdir build && cd build && cmake -GNinja .. -DMTS_ENABLE_EMBREE=TRUE && ninja -j64 && mv dist mitsuba2-icc && echo Done!
 
 
